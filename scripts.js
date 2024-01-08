@@ -1,8 +1,10 @@
 const showAllButton = document.querySelector('.show-all');
+const mapButton = document.querySelector('.map-all');
+const sumAll = document.querySelector('.sum-all');
+const filter = document.querySelector('.filter-vegan');
 
-const lista = document.querySelector(".list");
+const lista = document.querySelector('.list');
 
-const porcent = document.querySelector(".map-all");
 
 
 function showAll(items){
@@ -23,7 +25,7 @@ function showAll(items){
 
 
 
-function porc(){
+function mapAll(){
     const newPrice = menuOptions.map( item => ({
         ...item,
         price : item.price * 0.9,
@@ -32,5 +34,23 @@ function porc(){
     showAll(newPrice);
 }
 
-porcent.addEventListener("click", porc);
+function sumAllItems(){
+    const totalValue = menuOptions.reduce (( acc, cur) => {
+        return acc + cur.price}, 0)
+
+        lista.innerHTML = `
+        <li>A soma de todos os items do menu:
+           <p class="price">${totalValue}</p>
+        </li>`
+
+}
+
+function filterJustVegan(){
+    const justVegan = menuOptions.filter(item => item.vegan)
+    showAll(justVegan);
+}
+
+mapButton.addEventListener("click", mapAll);
 showAllButton.addEventListener("click", () => showAll(menuOptions));
+sumAll.addEventListener("click", sumAllItems);
+filter.addEventListener("click", filterJustVegan)
