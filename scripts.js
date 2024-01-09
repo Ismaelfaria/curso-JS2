@@ -1,56 +1,46 @@
-const showAllButton = document.querySelector('.show-all');
-const mapButton = document.querySelector('.map-all');
-const sumAll = document.querySelector('.sum-all');
-const filter = document.querySelector('.filter-vegan');
+const showAllBnt = document.querySelector('.show-all');
+const mapAllBnt = document.querySelector('.map-all');
+const sumAllBnt = document.querySelector('.sum-all');
+const filterVeganBnt = document.querySelector('.filter-vegan');
 
-const lista = document.querySelector('.list');
+const listaCompleta = document.querySelector('.list');
 
-
-
-function showAll(items){
-    let newli = '';
-
-    items.forEach( item => {
-        newli = newli + `
-        <li>
-           <img src="${item.src}">
-           <p>${item.name}</p>
-           <p class="price">${item.price}</p>
-        </li>
-        `
-    })
- lista.innerHTML = newli;
+function showAll(item){
+    let newList = '';
+    item.forEach(element => {
+        newList = newList +
+        `<li>
+          <img src="${element.src}">
+          <p>${element.name}</p>
+          <p>${element.price}</p>
+        </li>`
+    });
+    listaCompleta.innerHTML = newList;
 }
 
-
-
-
 function mapAll(){
-    const newPrice = menuOptions.map( item => ({
+    const prom = menuOptions.map( item => ({
         ...item,
         price : item.price * 0.9,
     }))
-
-    showAll(newPrice);
+    showAll(prom);
 }
 
-function sumAllItems(){
-    const totalValue = menuOptions.reduce (( acc, cur) => {
-        return acc + cur.price}, 0)
+function sumAll(){
+    const sum = menuOptions.reduce( (acc, acu) => {
+        return acc + acu.price
+    },0)
 
-        lista.innerHTML = `
-        <li>A soma de todos os items do menu:
-           <p class="price">${totalValue}</p>
-        </li>`
-
+    listaCompleta.innerHTML = 
+    `<li>O valor total: <p>${sum}</p></li>`
 }
 
-function filterJustVegan(){
-    const justVegan = menuOptions.filter(item => item.vegan)
-    showAll(justVegan);
+function filterVegan(){
+    const veg = menuOptions.filter(item => item.vegan);
+    showAll(veg)
 }
 
-mapButton.addEventListener("click", mapAll);
-showAllButton.addEventListener("click", () => showAll(menuOptions));
-sumAll.addEventListener("click", sumAllItems);
-filter.addEventListener("click", filterJustVegan)
+showAllBnt.addEventListener("click", () => showAll(menuOptions));
+mapAllBnt.addEventListener("click", mapAll);
+sumAllBnt.addEventListener("click", sumAll);
+filterVeganBnt.addEventListener("click", filterVegan );
